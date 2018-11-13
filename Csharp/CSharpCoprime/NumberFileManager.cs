@@ -1,0 +1,57 @@
+﻿using System;
+using System.Collections;
+using System.IO;
+namespace CSharpCoprime
+{
+    public class NumberFileManager
+    {
+
+        /** 
+         * Lee de un fichero los valores de los números que usaremos.
+         */
+        public ArrayList ReadFromFile(String path)
+        {
+            String aux;
+            ArrayList arr = new ArrayList();
+
+            try 
+            {
+                StreamReader sr = new StreamReader(path);
+                while ((aux = sr.ReadLine()) != null)
+                {
+                    arr.Add(Int32.Parse(aux));
+                }
+                sr.Close();
+            } catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            return arr;
+        }
+
+        public void WriteResult(String path, double t)
+        {
+            try
+            {
+                StreamWriter sw = new StreamWriter("CSHARP_RESULTS.txt",true);
+                sw.WriteLine("Test " + path + " Process time: " + t / 1000);
+                sw.Close();
+            } catch (IOException e) 
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+
+        public void CleanResults() {
+            try
+            {
+                StreamWriter sw = new StreamWriter("CSHARP_RESULTS.txt");
+                sw.WriteLine("");
+                sw.Close();
+            } catch (IOException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
